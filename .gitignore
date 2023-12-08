@@ -1,18 +1,476 @@
-*/config/development
-*/logs/log-*.php
-!*/logs/index.html
-*/cache/*
-!system/cache/*
-!*/cache/index.html
-!*/cache/.htaccess
+#include<iostream> 
+#include<conio.h>
+#include<string>
 
-user_guide_src/build/*
-user_guide_src/cilexer/build/*
-user_guide_src/cilexer/dist/*
-user_guide_src/cilexer/pycilexer.egg-info/*
+using namespace std;
 
-#codeigniter 3
-application/logs/*
-!application/logs/index.html
-!application/logs/.htaccess
-/vendor/
+class Book {
+	protected:
+		string isbn,title,author,edition,publication;
+		int NoOfBooks = 0,price=0;
+	public:
+		void setIsbn(string a)
+		{
+			isbn = a;
+		}
+		void setTitle(string b)
+		{
+			title = b;
+		}
+		void setAuthor(string c)
+		{
+			author = c;
+		}
+		void setEdition(string d)
+		{
+			edition = d;
+		}
+		void setPublication(string e)
+		{
+			publication = e;
+		}
+		void setStock(int a)
+		{
+			NoOfBooks= a;
+		}
+		void setPrice(int a)
+		{
+			price= a;
+		}
+};
+
+class BookInfo: public Book
+{
+	
+	public:
+		string getIsbn()
+		{
+			return isbn;
+		}
+		string getTitle()
+		{
+			return title;
+		}
+		string getAuthor()
+		{
+			return author;
+		}
+		string getEdition()
+		{
+			return edition;
+		}
+		string getPublication()
+		{	
+			return publication;
+		}
+		int getStock()
+		{
+			return NoOfBooks;
+		}
+		int getPrice()
+		{
+			return price;
+		}
+		int getTotal()
+		{
+			return price*NoOfBooks;
+		}
+		
+};
+
+void addBook(int counter);
+void deleteBook(int counter);
+void editBook(int counter);
+void searchBook(int counter);
+void viewAllBooks(int counter);
+void quit();
+
+int counter=0;
+
+void increment(int a){
+	a++;
+	counter=a;
+}
+
+void decrement(int a){
+	a--;
+	counter=a;
+}
+
+BookInfo books[10];
+
+int main()
+{
+	string choice;
+
+	system("CLS");
+	cout<<"LIBRARY MANAGEMENT SYSTEM\n\n";
+	cout<<"[1]	ADD BOOK\n";	
+	cout<<"[2]	DELETE BOOK\n";	
+	cout<<"[3]	EDIT BOOK\n";	
+	cout<<"[4]	SEARCH BOOK\n";	
+	cout<<"[5]	VIEW ALL BOOKS\n";	
+	cout<<"[6]	QUIT\n\n";
+	
+	cout<<"ENTER CHOICE: ";
+	getline(cin,choice);
+	system("CLS");
+	
+	if(choice=="1"){
+		addBook(counter); 
+	}		
+	else if(choice=="2"){	
+		deleteBook(counter); 
+	}
+	else if(choice=="3"){
+		editBook(counter); 	
+	}
+	else if(choice=="4"){
+		searchBook(counter);	
+	}
+	else if(choice=="5"){
+		viewAllBooks(counter); 
+	}
+	else if(choice	=="6"){
+		quit();
+	}
+	else{
+		main(); 
+	}
+		
+	_getch();
+	return 0;
+}
+
+// void EditNoOfBooks(int a)
+// {
+// 	system("CLS");
+//	string editIsbn,choice, editTitle;
+//	string isbn,title;
+//	
+//	cout<<"\nEDIT No BOOKs\n\n";
+//	if(a == 0){
+//		cout<<"THERE IS NO BOOK TO EDIT!\n\nPress any key to continue . . .";
+//		_getch();
+//		main();
+//	}
+//	cout<<"Enter ISBN: ";
+//	getline(cin,editIsbn);
+//	cout<<"Enter Title";
+//	getline(cin,editTitle);
+//	for(int i=0;i<a;i++)
+//	{
+//		if(books[i].getIsbn()==editIsbn && books[i].getTitle()==editTtitle)
+//		{
+//			cout<<"\nBOOK FOUND!\n\n";
+//			cout<<"ISBN: "<<books[i].getIsbn()<<endl;
+//			cout<<"TITLE: "<<books[i].getTitle()<<endl;
+//			cout<<"AUTHOR: "<<books[i].getAuthor()<<endl;
+//			cout<<"Stock: "<<books[i].getStock()<<endl;
+//			cout<<"Price: "<<books[i].getPrice()<<endl;
+//			cout<<"Total Inventory amount: "<<books[i].getTotal()<<endl;
+//			cout<<"EDITION: "<<books[i].getEdition()<<endl;
+//			cout<<"PUBLICATION: "<<books[i].getPublication()<<endl;
+//			cout<<"\nDo you want to edit?\n[1]Yes\n[2]No\n\nEnter choice: ";
+//			getline(cin,choice);
+//			if(choice=="1"){
+//				cout<<"Enter No Of Books Available: ";
+//				cin>> stock;
+//				cout<<"Enter Price: ";
+//				cin>> price;
+//				books[i].setStock(stock);
+//				books[i].setPublication(publication);	
+//				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+//				_getch();
+//				editBook(counter);
+//			}
+//			else
+//				main();		
+//		}
+//	}
+//	cout<<"\nBOOK NOT FOUND!\n\nPress any key to continue . . .";
+//	_getch();
+//	main();
+// }
+
+void addBook(int counter)
+{
+	string isbn,title,author,edition,publication;
+	int stock,price;
+	cout<<"ADD BOOK\n\n";
+	if(counter<10){
+		cout<<"Enter ISBN: ";
+		getline(cin,isbn); 
+		cout<<"Enter Title: ";
+		getline(cin,title);
+		cout<<"Enter Author: ";
+		getline(cin,author);
+		cout<<"Enter Edition: ";
+		getline(cin,edition);
+		cout<<"Enter No Of Books Available: ";
+		cin>> stock;
+		cout<<"Enter Price: ";
+		cin>> price;
+		getline(cin,publication);
+		cout<<"Enter Publication: ";
+		getline(cin,publication);
+		
+		books[counter].setIsbn(isbn); 
+		books[counter].setTitle(title);
+		books[counter].setAuthor(author);
+		books[counter].setEdition(edition);
+		books[counter].setStock(stock);
+		books[counter].setPrice(price);
+		books[counter].setPublication(publication);	
+		increment(counter);	
+		cout<<"\nBOOK ADDED SUCCESSFULLY!\n\nPress any key to continue . . .";
+		_getch();
+		main();
+	}
+	else{
+		cout<<"YOU HAVE REACHED THE MAXIMUM NUMBER OF BOOKS TOBE ADDED!\n\nPress any key to continue . . .";
+		_getch();
+		main();
+	}
+}
+
+void deleteBook(int counter){
+	string isbn;
+	int choice;
+	cout<<"DELETE BOOK\n\n";
+	if(counter==0){
+		cout<<"THERE IS NO BOOK TO DELETE!\n\nPress any key to continue . . .";
+		_getch();
+		main();
+	}
+	cout<<"Enter ISBN: ";
+	getline(cin,isbn);
+
+	for(int i=0;i<counter;i++)
+	{
+		if(books[i].getIsbn()==isbn){
+			cout<<"\nBOOK FOUND\n\n";
+			cout<<"Do you want to delete?\n[1]Yes\n[2]No\n\nEnter Choice: ";
+			cin>>choice;
+			if(choice==1){
+				books[i].setIsbn(""); 
+				books[i].setTitle("");
+				books[i].setAuthor("");
+				books[i].setEdition("");
+				books[i].setStock(0);
+				books[i].setPrice(0);
+				books[i].setPublication("");
+				for(int a=i;a<counter;a++)
+					books[a] = books[a+1];
+				
+//				books[9].setIsbn("");
+//				books[9].setTitle("");
+//				books[9].setAuthor("");
+//				books[9].setEdition("");
+//				books[9].setPublication("");
+				decrement(counter); 
+				cout<<"\nBOOK SUCCESSFULLY DELETED!\n\nPress any key to continue . . .";
+				_getch();
+				main();
+			}
+			else{
+				main();
+			}
+		}
+	}
+	cout<<"\nBOOK NOT FOUND!\n\nPress any key to continue . . .";
+	_getch();
+	main();	
+}
+void editBook(int counter){
+	system("CLS");
+	string editIsbn,choice;
+	string isbn,title,author,edition,publication;
+	int stock,price;
+	cout<<"\nEDIT BOOK\n\n";
+	if(counter == 0){
+		cout<<"THERE IS NO BOOK TO EDIT!\n\nPress any key to continue . . .";
+		_getch();
+		main();
+	}
+	cout<<"Enter ISBN: ";
+	getline(cin,editIsbn);
+	for(int i=0;i<counter;i++)
+	{
+		if(books[i].getIsbn()==editIsbn)
+		{
+			
+			cout<<"\nBOOK FOUND!\n\n";
+			cout<<"ISBN: "<<books[i].getIsbn()<<endl;
+			cout<<"TITLE: "<<books[i].getTitle()<<endl;
+			cout<<"AUTHOR: "<<books[i].getAuthor()<<endl;
+			cout<<"Stock: "<<books[i].getStock()<<endl;
+			cout<<"Price: "<<books[i].getPrice()<<endl;
+			cout<<"Total Inventory amount: "<<books[i].getTotal()<<endl;
+			cout<<"EDITION: "<<books[i].getEdition()<<endl;
+			cout<<"PUBLICATION: "<<books[i].getPublication()<<endl;
+			
+			
+			cout<<"\n To Be Edit:\n";
+			cout<<"[1] Title\n";
+			cout<<"[2] Author\n";
+			cout<<"[3] Stock\n";
+			cout<<"[4] Price\n";
+			cout<<"[5] Edition\n";
+			cout<<"[6] Publication\n";
+			cout<<"[7] ALL\n";
+			string ch;
+			getline(cin, ch);
+		
+			if(ch == "1")
+			{
+				cout<<"Enter Title: ";
+				getline(cin,title);
+				books[i].setTitle(title);
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();
+			}
+			else if( ch == "2")
+			{
+				cout<<"Enter Author: ";
+				getline(cin,author);
+				books[i].setAuthor(author);
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();	
+			}
+			else if(ch == "3" )
+			{
+				cout<<"Enter No Of Books Available: ";
+				cin>> stock;
+				books[i].setStock(stock);
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();
+			}
+			else if(ch == "4")
+			{
+				cout<<"Enter Price: ";
+				cin>> price;
+				books[i].setPrice(price);
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();
+			}
+			else if(ch == "5")
+			{
+				cout<<"Enter Edition: ";
+				getline(cin,edition);
+				books[i].setEdition(edition);
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();
+			}
+			else if( ch == "6")
+			{
+				cout<<"Enter Publication: ";
+				getline(cin,publication);
+				books[i].setPublication(publication);
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();	
+			}
+			else if( ch == "7")
+			{	
+				cout<<"Enter ISBN: ";
+				getline(cin,isbn);
+				cout<<"Enter Title: ";
+				getline(cin,title);
+				cout<<"Enter Author: ";
+				getline(cin,author);
+				cout<<"Enter No Of Books Available: ";
+				cin>> stock;
+				cout<<"Enter Price: ";
+				cin>> price;
+				getline(cin,edition);
+				cout<<"Enter Edition: ";
+				getline(cin,edition);
+				cout<<"Enter Publication: ";
+				getline(cin,publication);
+				books[i].setIsbn(isbn); 
+				books[i].setTitle(title);
+				books[i].setAuthor(author);
+				books[i].setEdition(edition);
+				books[i].setStock(stock);
+				books[i].setPrice(price);
+				books[i].setPublication(publication);	
+				cout<<"\nBOOK EDITED SUCCESSFULLY!\n\nPress any key to continue . . .";
+				_getch();
+				main();
+			}
+			else{
+				cout<<"Invalid Choice";
+				editBook(counter);
+			}
+				
+		}			
+		
+	}
+	cout<<"\nBOOK NOT FOUND!\n\nPress any key to continue . . .";
+	_getch();
+	main();
+}
+void searchBook(int counter){
+	string isbn;
+	int choice;
+	bool print = false; 
+	cout<<"SEARCH BOOK\n\n";
+	if(counter==0){
+		cout<<"THERE IS NO BOOK TO SEARCH!\n\nPress any key to continue . . .";
+		_getch();
+		main();
+	}
+	cout<<"Enter ISBN: ";
+	getline(cin,isbn);
+	for(int i=0;i<counter;i++){
+		if(books[i].getIsbn()==isbn){ 
+			cout<<"\nBOOK FOUND!\n\n";
+			cout<<"ISBN: "<<books[i].getIsbn()<<endl;
+			cout<<"TITLE: "<<books[i].getTitle()<<endl;
+			cout<<"AUTHOR: "<<books[i].getAuthor()<<endl;
+			cout<<"Stock: "<<books[i].getStock()<<endl;
+			cout<<"Price: "<<books[i].getPrice()<<endl;
+			cout<<"Total Inventory amount: "<<books[i].getTotal()<<endl;
+			cout<<"EDITION: "<<books[i].getEdition()<<endl;
+			cout<<"PUBLICATION: "<<books[i].getPublication()<<endl;
+			print = true;
+		}
+	}
+	if(print)
+	{
+		cout<<"\n\nPress any key to continue . . .";
+		_getch();
+		main();
+	}
+	else{
+		cout<<"\nBOOK NOT FOUND!\n\nPress any key to continue . . .";
+		_getch();
+		main();		
+	}
+}
+void viewAllBooks(int counter){
+	cout<<"VIEW ALL BOOKS\n\n";
+	for(int i=0;i<counter;i++){
+		cout<<"BOOK DETAILS\n\n";
+		cout<<"ISBN: "<<books[i].getIsbn()<<endl;
+		cout<<"TITLE: "<<books[i].getTitle()<<endl;
+		cout<<"AUTHOR: "<<books[i].getAuthor()<<endl;
+		cout<<"Stock: "<<books[i].getStock()<<endl;
+		cout<<"Price: "<<books[i].getPrice()<<endl;
+		cout<<"Total Inventory amount: "<<books[i].getTotal()<<endl;
+		cout<<"EDITION: "<<books[i].getEdition()<<endl;
+		cout<<"PUBLICATION: "<<books[i].getPublication()<<endl;
+	}
+	cout<<"Press any key to continue . . .";
+	_getch();
+	main();
+}
+void quit(){
+	_exit(1);
+}
